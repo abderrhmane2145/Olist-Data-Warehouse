@@ -1,7 +1,24 @@
+/*
+=================================================
+Load Bronze Layer ( Source >>> Bronze )
+=================================================
+Script Purpose:
+	- Loads data into bronze schema tables using BULK INSERT from external CSV files provided by the Olist Brazilian E-Commerce dataset.
+	- Truncates existing data in bronze tables before loading to ensure a clean refresh.
+
+Warning:
+	- Running this script will truncate all data in bronze schema tables (e.g., bronze.olist_orders).
+	- Ensure you have a proper backup of any existing data before running.
+
+Parameters:
+	- None.
+
+Example Usage :
+    - EXEC load_bronze;
+*/
 
 
-
-CREATE OR ALTER  PROCEDURE proc_Bronze_Load AS 
+CREATE OR ALTER  PROCEDURE load_bronze AS 
 BEGIN
 	DECLARE @start_time DATETIME, @end_time DATETIME, @start_proc_time DATETIME, @end_proc_time DATETIME
 	BEGIN TRY
