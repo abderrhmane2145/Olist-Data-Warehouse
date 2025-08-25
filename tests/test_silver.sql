@@ -1,24 +1,4 @@
 /*
-===============================================================================
-Quality Checks
-===============================================================================
-Script Purpose:
-    This script performs various quality checks for data consistency, accuracy, 
-    and standardization across the 'silver' layer. It includes checks for:
-    - Null or duplicate.
-    - Unwanted spaces in string fields.
-    - Data standardization and consistency.
-    - Data Normalization.
-    - Invalid date ranges and orders.
-    - Data consistency between related fields.
-
-Usage Notes:
-    - Run these checks after data loading Silver Layer.
-    - Investigate and resolve any discrepancies found during the checks.
-===============================================================================
-*/
-
-/*
 ============================================================
 Check For Table  : olist_customers
 ============================================================
@@ -44,10 +24,26 @@ WHERE customer_city != TRIM(customer_city) OR customer_state != TRIM(customer_st
 Check For Table  : olist_geolocation
 ============================================================
 */
+-- Check for duplicates and null values
+SELECT 
+	geolocation_zip_code_prefix, 
+    geolocation_lat,
+	geolocation_lng,
+	geolocation_city,
+	geolocation_state,
+	COUNT(*) AS counting_all
+FROM silver.olist_geolocation
+GROUP BY 
+        geolocation_zip_code_prefix, 
+		geolocation_lat,
+		geolocation_lng,
+		geolocation_city,
+		geolocation_state
+HAVING  COUNT(*) > 1;
 -- Check for unwanted space in columns : geolocation_city and geolocation_state
 SELECT
-geolocation_city,
-geolocation_state
+	geolocation_city,
+	geolocation_state
 FROM silver.olist_geolocation
 WHERE geolocation_city != TRIM(geolocation_city) OR geolocation_state != TRIM(geolocation_state);
 
