@@ -160,7 +160,7 @@ BEGIN
 				review_creation_date,
 				review_answer_timestamp
 			FROM bronze.olist_order_reviews 
-			)t WHERE Couting_ids = 1;
+			)t WHERE Couting_ids = 1; -- Remove duplicated values from this table
 		SET @end_time = GETDATE()
 		PRINT 'Load Duration : ' + CAST(DATEDIFF(second, @start_time,@end_time ) AS VARCHAR) + ' seconds.'
 
