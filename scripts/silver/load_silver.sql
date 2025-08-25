@@ -17,7 +17,7 @@ Example Usage :
     - EXEC load_silver;
 */
 
-CREATE PROCEDURE load_silver AS 
+CREATE OR ALTER PROCEDURE load_silver AS 
 BEGIN
 	DECLARE @start_time DATETIME, @end_time DATETIME, @start_proc_time DATETIME, @end_proc_time DATETIME
 	BEGIN TRY
@@ -149,7 +149,18 @@ BEGIN
 				review_comment_message,
 				review_creation_date,
 				review_answer_timestamp
-			FROM bronze.olist_order_reviews;
+	        FROM 
+			(SELECT 
+				review_id,
+				COUNT(review_id) OVER(PARTITION BY review_id)  AS Couting_ids,
+				order_id,
+				review_score,
+				review_comment_title,
+				review_comment_message,
+				review_creation_date,
+				review_answer_timestamp
+			FROM bronze.olist_order_reviews 
+			)t WHERE Couting_ids = 1;
 		SET @end_time = GETDATE()
 		PRINT 'Load Duration : ' + CAST(DATEDIFF(second, @start_time,@end_time ) AS VARCHAR) + ' seconds.'
 
