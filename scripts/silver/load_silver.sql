@@ -62,35 +62,37 @@ BEGIN
 			geolocation_city,
 			geolocation_state
 		)
-			SELECT 
-				g.geolocation_zip_code_prefix,
-				g.geolocation_lat,
-				g.geolocation_lng,
-				CASE WHEN geolocation_city != UPPER(TRIM(geolocation_city))  THEN UPPER(TRIM(geolocation_city))
-					 ELSE UPPER(geolocation_city)
-				END AS geolocation_city,  -- Normalize the geolocation cities to a form readable
-				CASE WHEN geolocation_state LIKE '%rio grande do sul, brasil",RS%' THEN 'RS'
-					WHEN geolocation_state LIKE '%rio de janeiro, brasil",RJ%'    THEN 'RJ'
-					ELSE LEFT(geolocation_state, 2)
-				END AS geolocation_state  -- Normalize the geolocation states to a form readable  and fix culprit
-		FROM  bronze.olist_geolocation  g
-		INNER JOIN (
 		SELECT 
-			geolocation_zip_code_prefix, 
-			COUNT(geolocation_zip_code_prefix) repeat_zipcode,
-			COUNT(geolocation_city) AS repeat_city,
-			COUNT(geolocation_lat) AS repeat_lat,
-			COUNT(geolocation_lng) AS repeat_lng
-			FROM bronze.olist_geolocation
-			GROUP BY geolocation_zip_code_prefix
-		) cte
-		    ON g.geolocation_zip_code_prefix = cte.geolocation_zip_code_prefix
-			WHERE 
-			repeat_zipcode > 1  OR
-			repeat_city > 1 OR
-			repeat_lat > 1 OR
-			repeat_lng > 1 OR 
-			g.geolocation_zip_code_prefix IS NULL
+			geolocation_zip_code_prefix,
+			geolocation_lat,
+			geolocation_lng,
+			UPPER(TRIM(geolocation_city)) AS geolocation_city,-- Normalize it to be more readable 
+			CASE 
+					WHEN geolocation_state LIKE '%rio grande do sul%' THEN 'RS'
+					WHEN geolocation_state LIKE '%rio de janeiro%' THEN 'RJ'
+					ELSE LEFT(TRIM(geolocation_state), 2) -- Fix Culprit
+			END AS geolocation_state -- Normalize it to be more readable
+	  FROM
+		 (SELECT 
+			geolocation_zip_code_prefix,
+			geolocation_lat,
+			geolocation_lng,
+			geolocation_city,
+			geolocation_state,
+			COUNT(*) AS counting
+		FROM bronze.olist_geolocation
+		GROUP BY 
+			geolocation_zip_code_prefix,
+			geolocation_lat,
+			geolocation_lng,
+			geolocation_city,
+			geolocation_state
+		HAVING COUNT(*) = 1 AND
+			geolocation_zip_code_prefix IS NOT NULL AND
+			geolocation_lat IS NOT NULL AND
+			geolocation_city IS NOT NULL AND
+			geolocation_lng IS NOT NULL AND
+			geolocation_state IS NOT NULL )t
 
 
 		SET @end_time = GETDATE()
