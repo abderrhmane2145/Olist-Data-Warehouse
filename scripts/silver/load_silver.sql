@@ -43,7 +43,7 @@ BEGIN
 				CASE WHEN customer_state LIKE '%rio grande do sul, brasil",RS%' THEN 'RS'
 					 WHEN customer_state LIKE '%rio de janeiro, brasil",RJ%'    THEN 'RJ'
 					 ELSE LEFT(customer_state, 2)
-				END AS customer_state -- Standardization
+				END AS customer_state -- Standardization  and fix culprit
 			FROM bronze.olist_customers;
 		SET @end_time = GETDATE()
 		PRINT 'Load Duration : ' + CAST(DATEDIFF(second, @start_time,@end_time ) AS VARCHAR) + ' seconds.'
@@ -55,19 +55,44 @@ BEGIN
 
 		TRUNCATE TABLE silver.olist_geolocation
 		INSERT INTO silver.olist_geolocation
-		(geolocation_zip_code_prefix, geolocation_lat, geolocation_lng, geolocation_city, geolocation_state)
+		(
+			geolocation_zip_code_prefix,
+			geolocation_lat,
+			geolocation_lng, 
+			geolocation_city,
+			geolocation_state
+		)
 			SELECT 
-				geolocation_zip_code_prefix,
-				geolocation_lat,
-				geolocation_lng,
+				g.geolocation_zip_code_prefix,
+				g.geolocation_lat,
+				g.geolocation_lng,
 				CASE WHEN geolocation_city != UPPER(TRIM(geolocation_city))  THEN UPPER(TRIM(geolocation_city))
 					 ELSE UPPER(geolocation_city)
 				END AS geolocation_city,  -- Normalize the geolocation cities to a form readable
 				CASE WHEN geolocation_state LIKE '%rio grande do sul, brasil",RS%' THEN 'RS'
-					 WHEN geolocation_state LIKE '%rio de janeiro, brasil",RJ%'    THEN 'RJ'
-					 ELSE LEFT(geolocation_state, 2)
-				END AS geolocation_state  -- Normalize the geolocation states to a form readable
-			FROM bronze.olist_geolocation;
+					WHEN geolocation_state LIKE '%rio de janeiro, brasil",RJ%'    THEN 'RJ'
+					ELSE LEFT(geolocation_state, 2)
+				END AS geolocation_state  -- Normalize the geolocation states to a form readable  and fix culprit
+		FROM  bronze.olist_geolocation  g
+		INNER JOIN (
+		SELECT 
+			geolocation_zip_code_prefix, 
+			COUNT(geolocation_zip_code_prefix) repeat_zipcode,
+			COUNT(geolocation_city) AS repeat_city,
+			COUNT(geolocation_lat) AS repeat_lat,
+			COUNT(geolocation_lng) AS repeat_lng
+			FROM bronze.olist_geolocation
+			GROUP BY geolocation_zip_code_prefix
+		) cte
+		    ON g.geolocation_zip_code_prefix = cte.geolocation_zip_code_prefix
+			WHERE 
+			repeat_zipcode > 1  OR
+			repeat_city > 1 OR
+			repeat_lat > 1 OR
+			repeat_lng > 1 OR 
+			g.geolocation_zip_code_prefix IS NULL
+
+
 		SET @end_time = GETDATE()
 		PRINT 'Load Duration : ' + CAST(DATEDIFF(second, @start_time,@end_time ) AS VARCHAR) + ' seconds.'
 
@@ -160,7 +185,7 @@ BEGIN
 				review_creation_date,
 				review_answer_timestamp
 			FROM bronze.olist_order_reviews 
-			)t WHERE Couting_ids = 1; -- Remove duplicated values from this table
+			)t WHERE Couting_ids = 1;
 		SET @end_time = GETDATE()
 		PRINT 'Load Duration : ' + CAST(DATEDIFF(second, @start_time,@end_time ) AS VARCHAR) + ' seconds.'
 
@@ -283,7 +308,7 @@ BEGIN
 				CASE WHEN seller_state LIKE '%rio grande do sul, brasil",RS%' THEN 'RS'
 					 WHEN seller_state LIKE '%rio de janeiro, brasil",RJ%'    THEN 'RJ'
 					 ELSE LEFT(seller_state, 2)
-				END AS seller_state -- Normalize  seller states to be readable
+				END AS seller_state -- Normalize  seller states to be readable and fix culprit
 			FROM bronze.olist_sellers s
 			LEFT JOIN silver.correction_cities c
 			ON c.seller_id = s.seller_id;
