@@ -37,13 +37,12 @@ BEGIN
 			SELECT 
 				customer_id,
 				customer_zip_code_prefix,
-				CASE WHEN customer_city != UPPER(TRIM(customer_city))  THEN UPPER(TRIM(customer_city))
-					 ELSE UPPER(customer_city)
-				END AS customer_city, -- Standardization
-				CASE WHEN customer_state LIKE '%rio grande do sul, brasil",RS%' THEN 'RS'
-					 WHEN customer_state LIKE '%rio de janeiro, brasil",RJ%'    THEN 'RJ'
-					 ELSE LEFT(customer_state, 2)
-				END AS customer_state -- Standardization  and fix culprit
+				UPPER(TRIM(customer_city)) AS customer_city,-- Normalize it to be more readable 
+			    CASE 
+					WHEN customer_state LIKE '%rio grande do sul%' THEN 'RS'
+					WHEN customer_state LIKE '%rio de janeiro%' THEN 'RJ'
+					ELSE LEFT(TRIM(customer_state), 2) -- Fix Culprit
+			END AS geolocation_state -- Normalize it to be more readable
 			FROM bronze.olist_customers;
 		SET @end_time = GETDATE()
 		PRINT 'Load Duration : ' + CAST(DATEDIFF(second, @start_time,@end_time ) AS VARCHAR) + ' seconds.'
@@ -73,26 +72,26 @@ BEGIN
 					ELSE LEFT(TRIM(geolocation_state), 2) -- Fix Culprit
 			END AS geolocation_state -- Normalize it to be more readable
 	  FROM
-		 (SELECT 
-			geolocation_zip_code_prefix,
-			geolocation_lat,
-			geolocation_lng,
-			geolocation_city,
-			geolocation_state,
-			COUNT(*) AS counting
-		FROM bronze.olist_geolocation
-		GROUP BY 
-			geolocation_zip_code_prefix,
-			geolocation_lat,
-			geolocation_lng,
-			geolocation_city,
-			geolocation_state
-		HAVING COUNT(*) = 1 AND
-			geolocation_zip_code_prefix IS NOT NULL AND
-			geolocation_lat IS NOT NULL AND
-			geolocation_city IS NOT NULL AND
-			geolocation_lng IS NOT NULL AND
-			geolocation_state IS NOT NULL )t
+	 (SELECT 
+		geolocation_zip_code_prefix,
+		geolocation_lat,
+		geolocation_lng,
+		geolocation_city,
+		geolocation_state,
+		COUNT(*) AS counting
+	FROM bronze.olist_geolocation
+	GROUP BY 
+		geolocation_zip_code_prefix,
+		geolocation_lat,
+		geolocation_lng,
+		geolocation_city,
+		geolocation_state
+	HAVING COUNT(*) = 1 AND
+		geolocation_zip_code_prefix IS NOT NULL AND
+		geolocation_lat IS NOT NULL AND
+		geolocation_city IS NOT NULL AND
+		geolocation_lng IS NOT NULL AND
+		geolocation_state IS NOT NULL )t
 
 
 		SET @end_time = GETDATE()
@@ -306,11 +305,12 @@ BEGIN
 			SELECT 
 				s.seller_id,
 				s.seller_zip_code_prefix,
-				c.seller_city,
-				CASE WHEN seller_state LIKE '%rio grande do sul, brasil",RS%' THEN 'RS'
-					 WHEN seller_state LIKE '%rio de janeiro, brasil",RJ%'    THEN 'RJ'
-					 ELSE LEFT(seller_state, 2)
-				END AS seller_state -- Normalize  seller states to be readable and fix culprit
+				UPPER(TRIM(s.seller_city)) AS seller_city,-- Normalize it to be more readable 
+                CASE 
+					WHEN s.seller_state LIKE '%rio grande do sul%' THEN 'RS'
+					WHEN s.seller_state LIKE '%rio de janeiro%' THEN 'RJ'
+					ELSE LEFT(TRIM(s.seller_state), 2) -- Fix Culprit
+                END AS seller_state -- Normalize it to be more readable
 			FROM bronze.olist_sellers s
 			LEFT JOIN silver.correction_cities c
 			ON c.seller_id = s.seller_id;
