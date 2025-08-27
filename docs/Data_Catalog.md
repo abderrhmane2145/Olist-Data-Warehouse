@@ -25,7 +25,7 @@ and ad-hoc reporting.
 	 	 
 ---
 
-### 2. **gold.dim_customers**
+### 2. **gold.dim_customer**
 - **Purpose:** Stores customer details enriched with demographic and geographic data.
 - **Columns:**
 
@@ -38,6 +38,23 @@ and ad-hoc reporting.
 | customer_zip_code_prefix  | NVARCHAR(50)  | A nuemrical code represents the zip code prefix of the city.                                  |
 | latitude                  | FLOAT         | A number represents the latitude of the customer's location.                                  |
 | longitude                 | FLOAT         | A number represents the longitude of the customer's location.                                 |
+
+
+---
+
+### 3. **gold.dim_seller**
+- **Purpose:** Stores seller details enriched with demographic and geographic data.
+- **Columns:**
+
+| Column Name               | Data Type     | Description                                                                                   |
+|---------------------------|---------------|-----------------------------------------------------------------------------------------------|
+| seller_key                | INT            | Surrogate key uniquely identifying each seller record in the dimension table.               |
+| seller_id                 | NVARCHAR(200) | Unique identifier assigned to each seller.                                                  |
+| seller_city               | NVARCHAR(200) | A string representing the city of the seller.                                               |
+| seller_state              | NVARCHAR(55)  | A string representing the state of the seller.                                              |
+| seller_zip_code_prefix    | INT           | A nuemrical code represents the zip code prefix of the city.                                  |
+| latitude                  | FLOAT         | A number represents the latitude of the seller's location.                                  |
+| longitude                 | FLOAT         | A number represents the longitude of the seller's location.                                 |
 
 
 ---
