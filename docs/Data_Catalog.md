@@ -1,12 +1,12 @@
 # Data Catalog for Gold Layer 
 
-## OVERIVEW :  
+## Overview :  
 Gold Layer contains the dimensions and fact tables which are clean, enriched and business-ready data for doing Dashboards 
 and ad-hoc reporting.
  
    --- 
 
- ## 1. **gold.dim_product**:
+### 1. **gold.dim_product**:
      
 - **Purpose:** this dimension table show the details about the product such as category,weight,name ...etc.
 - **Columns:** 
@@ -25,5 +25,21 @@ and ad-hoc reporting.
 	 	 
 ---
 
+### 2. **gold.dim_customers**
+- **Purpose:** Stores customer details enriched with demographic and geographic data.
+- **Columns:**
+
+| Column Name               | Data Type     | Description                                                                                   |
+|---------------------------|---------------|-----------------------------------------------------------------------------------------------|
+| customer_key              | INT           | Surrogate key uniquely identifying each customer record in the dimension table.               |
+| customer_id               | NVARCHAR(200) | Unique identifier assigned to each customer.                                                  |
+| customer_city             | NVARCHAR(200) | A string representing the city of the customer.                                               |
+| customer_state            | NVARCHAR(55)  | A string representing the state of the customer.                                              |
+| customer_zip_code_prefix  | NVARCHAR(50)  | A nuemrical code represents the zip code prefix of the city.                                  |
+| latitude                  | FLOAT         | A number represents the latitude of the customer's location.                                  |
+| longitude                 | FLOAT         | A number represents the longitude of the customer's location.                                 |
+
+
+---
 
 
