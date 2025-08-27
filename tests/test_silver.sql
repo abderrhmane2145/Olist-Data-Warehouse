@@ -52,6 +52,12 @@ WHERE geolocation_city != TRIM(geolocation_city) OR geolocation_state != TRIM(ge
 Check For Table  : olist_order_items
 ============================================================
 */
+-- check for null or duplication values 
+SELECT order_id, COUNT(order_id) 
+FROM silver.olist_order_items 
+GROUP BY order_id
+HAVING COUNT(order_id) > 1 OR order_id IS NULL;
+
 -- check for unwanted spaces and null values in columns : order_id, product_id, seller_id
 SELECT order_id, product_id, seller_id  
 FROM silver.olist_order_items
@@ -132,8 +138,8 @@ GROUP BY product_id HAVING COUNT(product_id) > 1 OR product_id IS NULL;
 SELECT product_category_name FROM silver.olist_products
 WHERE product_category_name != TRIM(product_category_name);
 -- Check if product_name_lenght is correct 
-SELECT product_category_name, LEN(product_category_name), product_name_lenght 
-FROM silver.olist_products WHERE LEN(product_category_name) != product_name_lenght;
+SELECT product_category_name, LEN(product_category_name), product_name_length 
+FROM silver.olist_products WHERE LEN(product_category_name) != product_name_length;
 
 /*
 ============================================================
