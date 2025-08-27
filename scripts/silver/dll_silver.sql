@@ -98,7 +98,7 @@ GO
 CREATE TABLE silver.olist_products (
 	product_id              NVARCHAR(200),
 	product_category_name   NVARCHAR(200),
-	product_name_lenght     FLOAT,
+	product_name_length     FLOAT,
 	product_photos_qty  FLOAT,
 	product_weight_g    FLOAT,
 	product_length_cm   FLOAT,
