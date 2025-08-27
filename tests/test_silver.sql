@@ -53,10 +53,15 @@ Check For Table  : olist_order_items
 ============================================================
 */
 -- check for null or duplication values 
-SELECT order_id, COUNT(order_id) 
-FROM silver.olist_order_items 
-GROUP BY order_id
-HAVING COUNT(order_id) > 1 OR order_id IS NULL;
+SELECT 
+	order_id,
+	order_item_id,
+	COUNT(*) AS dup_null
+FROM bronze.olist_order_items
+GROUP BY 
+order_id,
+order_item_id
+HAVING COUNT(*) > 1 OR order_id IS NULL;
 
 -- check for unwanted spaces and null values in columns : order_id, product_id, seller_id
 SELECT order_id, product_id, seller_id  
