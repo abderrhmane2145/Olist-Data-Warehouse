@@ -48,10 +48,10 @@ and ad-hoc reporting.
 
 | Column Name               | Data Type     | Description                                                                                   |
 |---------------------------|---------------|-----------------------------------------------------------------------------------------------|
-| seller_key                | INT            | Surrogate key uniquely identifying each seller record in the dimension table.               |
+| seller_key                | INT           | Surrogate key uniquely identifying each seller record in the dimension table.               |
 | seller_id                 | NVARCHAR(200) | Unique identifier assigned to each seller.                                                  |
 | seller_city               | NVARCHAR(200) | A string representing the city of the seller.                                               |
-| seller_state              | NVARCHAR(55)  | A string representing the state of the seller.                                              |
+| seller_state              | NVARCHAR(200) | A string representing the state of the seller.                                              |
 | seller_zip_code_prefix    | INT           | A nuemrical code represents the zip code prefix of the city.                                  |
 | latitude                  | FLOAT         | A number represents the latitude of the seller's location.                                  |
 | longitude                 | FLOAT         | A number represents the longitude of the seller's location.                                 |
