@@ -1,7 +1,7 @@
 # Data Catalog for Gold Layer 
 
 ## OVERIVEW :  
-       -  Gold Layer contains the dimensions and fact tables which are clean, enriched and business-ready data for doing Dashboards and ad-hoc reporting.
+         Gold Layer contains the dimensions and fact tables which are clean, enriched and business-ready data for doing Dashboards and ad-hoc reporting.
  
    --- 
 
