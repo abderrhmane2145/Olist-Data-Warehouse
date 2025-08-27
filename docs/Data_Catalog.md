@@ -10,7 +10,7 @@
 	**purpose** : this dimension table show the details about the product such as category,weight,name ..etc
   
   
-    | Column Name           |  Data Type    |                Description
+    | Column Name           |  Data Type    |                Description                                                                          |
 	|-----------------------|---------------|-----------------------------------------------------------------------------------------------------|
 	| product_key           |    INT        |  A surrogate key, unique identifier for each product                                                |
 	| product_id            |    INT        |  A unique identifier assigned  for each product                                                    |
