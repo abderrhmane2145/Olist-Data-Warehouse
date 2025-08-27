@@ -26,8 +26,9 @@ CREATE VIEW gold.dim_product AS
 SELECT 
     ROW_NUMBER() OVER(ORDER BY p.product_id) AS product_key, -- Surrogate Key
   	p.product_id,
-  	COALESCE(t.product_category_name_english, 'Unknown') AS category,
-  	COALESCE(p.product_name_lenght, 0) AS name_lenght,
+  	t.product_category_name_english AS category_english,
+    p.product_category_name AS category_portuguese,
+    p.product_name_length AS name_length,
   	COALESCE(p.product_photos_qty, 0) AS photo_number,
   	p.product_weight_g AS weight_g,
   	p.product_volume_cm3 AS volume_cm3
