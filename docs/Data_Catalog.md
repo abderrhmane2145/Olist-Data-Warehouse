@@ -29,15 +29,15 @@ and ad-hoc reporting.
 - **Purpose:** Stores customer details enriched with demographic and geographic data.
 - **Columns:**
 
-| Column Name               | Data Type     | Description                                                                                   |
-|---------------------------|---------------|-----------------------------------------------------------------------------------------------|
-| customer_key              | INT           | Surrogate key uniquely identifying each customer record in the dimension table.               |
-| customer_id               | NVARCHAR(200) | Unique identifier assigned to each customer.                                                  |
-| customer_city             | NVARCHAR(200) | A string representing the city of the customer.                                               |
-| customer_state            | NVARCHAR(55)  | A string representing the state of the customer.                                              |
-| customer_zip_code_prefix  | NVARCHAR(50)  | A nuemrical code represents the zip code prefix of the city.                                  |
-| latitude                  | FLOAT         | A number represents the latitude of the customer's location.                                  |
-| longitude                 | FLOAT         | A number represents the longitude of the customer's location.                                 |
+| Column Name               | Data Type     | Description                                                                              |
+|---------------------------|---------------|------------------------------------------------------------------------------------------|
+| customer_key              | INT           | Surrogate key uniquely identifying each customer record in the dimension table.          |
+| customer_id               | NVARCHAR(35)  | Unique identifier assigned to each customer.                                             |
+| customer_city             | NVARCHAR(35)  | A string representing the city of the customer.                                          |
+| customer_state            | NVARCHAR(35)  | A string representing the state of the customer.                                         |
+| customer_zip_code_prefix  | INT           | A nuemrical code represents the zip code prefix of the city.                             |
+| latitude                  | FLOAT         | A number represents the latitude of the customer's location.                             |
+| longitude                 | FLOAT         | A number represents the longitude of the customer's location.                            |
 
 
 ---
@@ -46,15 +46,15 @@ and ad-hoc reporting.
 - **Purpose:** Stores seller details enriched with demographic and geographic data.
 - **Columns:**
 
-| Column Name               | Data Type     | Description                                                                                   |
-|---------------------------|---------------|-----------------------------------------------------------------------------------------------|
-| seller_key                | INT           | Surrogate key uniquely identifying each seller record in the dimension table.               |
-| seller_id                 | NVARCHAR(200) | Unique identifier assigned to each seller.                                                  |
-| seller_city               | NVARCHAR(200) | A string representing the city of the seller.                                               |
-| seller_state              | NVARCHAR(200) | A string representing the state of the seller.                                              |
-| seller_zip_code_prefix    | INT           | A nuemrical code represents the zip code prefix of the city.                                  |
-| latitude                  | FLOAT         | A number represents the latitude of the seller's location.                                  |
-| longitude                 | FLOAT         | A number represents the longitude of the seller's location.                                 |
+| Column Name               | Data Type     | Description                                                                              |
+|---------------------------|---------------|------------------------------------------------------------------------------------------|
+| seller_key                | INT           | Surrogate key uniquely identifying each seller record in the dimension table.            |
+| seller_id                 | NVARCHAR(35)  | Unique identifier assigned to each seller.                                               |
+| seller_city               | NVARCHAR(53)  | A string representing the city of the seller.                                            |
+| seller_state              | NVARCHAR(53)  | A string representing the state of the seller.                                           |
+| seller_zip_code_prefix    | INT           | A nuemrical code represents the zip code prefix of the city.                             |
+| latitude                  | FLOAT         | A number represents the latitude of the seller's location.                               |
+| longitude                 | FLOAT         | A number represents the longitude of the seller's location.                              |
 
 
 ---
