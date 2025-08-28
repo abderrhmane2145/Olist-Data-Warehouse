@@ -59,4 +59,30 @@ and ad-hoc reporting.
 
 ---
 
+ ### 4. **gold.fact_orders**
+- **Purpose:** Stores many metrics (e.g.price, frieght_value..etc) that are required in analytics and reports purposes.
+- **Columns:**
+
+| Column Name               | Data Type     | Description                                                                                |
+|---------------------------|---------------|--------------------------------------------------------------------------------------------|
+| order_id                  | NVARCHAR(35)  | A unique string assigned to each order.                                                    |
+| customer_key              | INT           | A surrogate key, linking the customer record to the gold.dim_customer table.               |
+| product_key               | INT           | A surrogate key, linking the product record to the gold.dim_product table.                 |
+| seller_key                | INT           | A surrogate key, linking the seller record to the gold.dim_seller table.                   |
+| order_status              | NVARCHAR(35)  | A string describeing the status of the order (e.g.delivered, unavailable...etc).           |
+| price                     | FLOAT         | A number representing the cost of selling the product.                                     |
+| freight_value             | FLOAT         | A number representing the cost of shipping  the product.                                   |
+| total_price               | FLOAT         | A number representing the total cost of product,calculated as  price + freight_value       |
+| shipping_date             | DATETIME2     | A date representing the date of shipping the product.                                      |
+| duration_sell_day         | INT           | A number representing number of days taken to finish entire sales process.                 |
+| duration_delivery_day     | INT           | A number representing number of days taken to deliver product to customer.                 |
+| payment_sequential        | INT           | A number representing the count of different payment types used for the order.             |
+| payment_type              | NVARCHAR(35)  | A string representing payment method used (e.g.credit_card, voucher...etc).                |
+| payment_installments      | INT           | A number representing the number of payment installments.                                  | 
+| payment_value             | FLOAT         | A number representing the total amount paid by the customer.                               |
+| review_score              | INT           | A number representing the rating provided by the customer.                                 |
+  
+
+
+---
 
