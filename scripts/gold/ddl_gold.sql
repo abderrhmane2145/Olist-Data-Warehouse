@@ -141,6 +141,7 @@ SELECT
   	oi.price,
   	oi.freight_value,
   	oi.total_price,
+	oi.shipping_limit_date AS shipping_date,
   	DATEDIFF(day, o.order_purchase_timestamp, o.order_delivered_customer_date) AS duration_sell_day,
   	DATEDIFF(day, o.order_delivered_carrier_date, o.order_delivered_customer_date) AS duration_delivery_day,
   	op.payment_sequential,
