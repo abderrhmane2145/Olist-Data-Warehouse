@@ -1,0 +1,23 @@
+## NAMING CONVENTION :
+	- General:
+		- Use snake_case
+		- Lnaguage : English
+		- Descriptive, consistent names
+	- Bronze Layer:
+		- Format: olist_<entity>
+		- Example: olist_orders, olist_customers
+	- Silver Layer:
+		- Format: olist_<entity>
+		- Example: olist_orders, olist_customers
+	- Gold Layer:
+		- Format: dim_<entity>, fact_<entity>
+		- Example: dim_customer, fact_orders
+	- Columns:
+		- Format: snake_case (e.g., order_id, total_price)
+		- Surrogate Keys: <table_name>_key (e.g., customer_key)
+	- Stored Procedures:
+		- Loading: load_<layer> (e.g., load_silver_orders)
+		- Tables of Schema: dll_<layer> (e.g., dll_gold_dim_customer)
+		- Database & Schema : Create_DBS
+                - Test Quality : test_<layer>
+		- Analytics: sp_<purpose> (e.g., sp_top_categories) 
