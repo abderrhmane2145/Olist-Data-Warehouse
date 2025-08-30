@@ -38,7 +38,7 @@ Run T-SQL queries for e-commerce insights.
   │   ├── data_architecture.jpg          # jpg image by Draw.io file shows the project's architecture
   │   ├── data_catalog.md                # Catalog of datasets, including field descriptions and metadata
   │   ├── data_flow.jpg                  # jpg image by Draw.io file for the data flow diagram
-  │   ├── data_model.jpg                 # jpg image Draw.io file for data models (star schema)
+  │   ├── data_model.jpg                 # jpg image by Draw.io file for data models (star schema)
   │   ├── Naming_Convention.md           # Consistent naming guidelines for tables, columns, and files
   │
   ├── scripts/                            # SQL scripts for ETL and transformations
