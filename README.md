@@ -34,12 +34,12 @@ Run T-SQL queries for e-commerce insights.
   ├── datasets/                           # Raw datasets used for the project (Csv Files)
   │
   ├── docs/                               # Project documentation and architecture details
-  │   ├── data_integration.jpg           # jpg image by Draw.io file shows all integration between the tables
-  │   ├── data_architecture.jpg          # jpg image by Draw.io file shows the project's architecture
-  │   ├── data_catalog.md                # Catalog of datasets, including field descriptions and metadata
-  │   ├── data_flow.jpg                  # jpg image by Draw.io file for the data flow diagram
-  │   ├── data_model.jpg                 # jpg image by Draw.io file for data models (star schema)
-  │   ├── Naming_Convention.md           # Consistent naming guidelines for tables, columns, and files
+  │   ├── data_integration.jpg            # jpg image by Draw.io file shows all integration between the tables
+  │   ├── data_architecture.jpg           # jpg image by Draw.io file shows the project's architecture
+  │   ├── data_catalog.md                 # Catalog of datasets, including field descriptions and metadata
+  │   ├── data_flow.jpg                   # jpg image by Draw.io file for the data flow diagram
+  │   ├── data_model.jpg                  # jpg image by Draw.io file for data models (star schema)
+  │   ├── Naming_Convention.md            # Consistent naming guidelines for tables, columns, and files
   │
   ├── scripts/                            # SQL scripts for ETL and transformations
   │   ├── bronze/                         # Scripts for extracting and loading raw data
