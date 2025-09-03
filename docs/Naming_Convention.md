@@ -29,8 +29,8 @@ This document outlines the naming conventions used for schemas, tables, views, c
 - **Format**: snake_case (e.g., order_id, total_price)
 - **Surrogate Keys**: **`<table_name>_key`** (e.g., customer_key)
 ## Stored Procedures
-- **Loading**: **`load_<layer>`** (e.g., load_silver_orders)
+- **Loading**: **`load_<layer>`** (e.g., load_silver)
 ## Others
-- **Tables of Schema**: **`dll_<layer>`** (e.g., dll_gold_dim_customer)
+- **Tables of Schema**: **`dll_<layer>`** (e.g., dll_gold)
 - **Database & Schema** : Create_DBS
 - **Test Quality** : **`test_<layer>`**
