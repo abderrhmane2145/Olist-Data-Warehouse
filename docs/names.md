@@ -13,31 +13,31 @@ This document show the naming convention of used for schemas, tables, views, col
 
 ---
 
-## General : 
+## General  
 - Use Snake Case.
 - Language : English.
 - Clear & Consistent Names.
 
-## Bronze Layer :
+## Bronze Layer 
 - **Format** : **`bronze_<entity>`**.
 - **Example** : bronze_product.
 
-## Silver Layer :
+## Silver Layer 
 - **Format** : **`silver_<entity>`**.
 - **Example** : silver_sales.
 
-## Gold Layer :
+## Gold Layer 
 - **Format** : **`dim_<entity>`**, **`fact_<entity>`** .
 - **Example** : dim_factory, fact_sales.
 
-## Columns :
+## Columns 
 - **Format** : snake_case(e.g. order_id,).
 - **Surrogate Keys** : **`<table_name>_key`** (e.g., factory_key)
 
-## Stored Procedure :
+## Stored Procedure 
 - **Format** : **`load_<layer>`** (e.g. load_silver)
 
-## Others :
+## Others 
 - **Test Quality** : **`test_<layer>`** (e.g. test_silver)
 - **schema & database** : **`create_DBS`**
 - **tables of schema** : **`ddl_<layer>`** (e.g. ddl_bronze)
